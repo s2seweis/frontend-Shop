@@ -1,0 +1,63 @@
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
+  }
+  
+  .navbar {
+    transition: background-color 0.3s ease;
+  }
+  
+  .card {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .btn-primary {
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .input-bordered {
+    transition: background-color 0.3s ease, border-color 0.3s ease,
+      color 0.3s ease;
+  }
+  
+  .hover-effect {
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .shoppingCart {
+    max-width: 100%;
+  }
+  
+  .btn-group {
+    display: flex;
+  }
+  
+  .btn {
+    flex: 1;
+  }
+  
+  #menuItems {
+    display: none;
+  }
+  
+  @media (min-width: 1024px) {
+    #menuItems {
+      display: flex;
+    }
+  }
+  
+  #searchBar {
+    max-height: 0;
+    transition: max-height 0.4s ease-out;
+    color: var(--text-color);
+  }
+  
+  #searchBar.show {
+    max-height: 100px;
+  }
+  
+  .hamburger-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
