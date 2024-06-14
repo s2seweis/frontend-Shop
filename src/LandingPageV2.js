@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Container, Typography, Button, Grid, useMediaQuery, useTheme, Card, CardMedia, CardContent, CircularProgress } from '@mui/material';
+import { Box, Container, Typography, Button, Grid, useTheme, Card, CardMedia, CardContent, CircularProgress } from '@mui/material';
 import { keyframes } from '@emotion/react';
 import { NavLink } from 'react-router-dom';
 import { Carousel } from 'react-responsive-carousel';
@@ -17,7 +17,6 @@ const fadeIn = keyframes`
 
 const LandingPage2 = () => {
   const [loading, setLoading] = useState(false);
-  const [showMore, setShowMore] = useState(false);
   const theme = useTheme();
   // const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
