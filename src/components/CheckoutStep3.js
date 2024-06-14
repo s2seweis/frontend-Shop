@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Button, Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import React, { useState, useContext } from 'react';
+import { Button, Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Snackbar, Alert } from '@mui/material';
 import { Form } from 'formik';
 import { useTheme } from '@mui/material/styles';
 import { BasketContext } from '../BasketContext';
@@ -7,10 +7,15 @@ import { BasketContext } from '../BasketContext';
 const CheckoutStep3 = ({ handleBack, values }) => {
   const theme = useTheme();
   const { basket } = useContext(BasketContext);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const handleSubmitOrder = () => {
-    alert('Order placed successfully!');
     // Place order logic here
+    setOpenSnackbar(true);
+  };
+
+  const handleSnackbarClose = () => {
+    setOpenSnackbar(false);
   };
 
   const totalSum = basket.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -80,6 +85,12 @@ const CheckoutStep3 = ({ handleBack, values }) => {
           Place Order
         </Button>
       </Box>
+
+      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleSnackbarClose}>
+        <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '100%' }}>
+          Order placed successfully!
+        </Alert>
+      </Snackbar>
     </Form>
   );
 };

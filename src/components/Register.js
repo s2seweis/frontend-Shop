@@ -35,7 +35,7 @@ const RegisterPage = () => {
 
   return (
     <Box sx={{ maxWidth: 400, mx: 'auto', mt: 5, p: 3, boxShadow: 3 }}>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom sx={{ color: 'text.primary' }}>
         Register
       </Typography>
       <Formik

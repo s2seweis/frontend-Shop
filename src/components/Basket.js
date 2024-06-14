@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
-import { Typography, IconButton, Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState, useEffect } from 'react';
+import { Typography, IconButton, Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Snackbar, Alert } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 import { BasketContext } from '../BasketContext';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
@@ -8,9 +8,31 @@ import RemoveIcon from '@mui/icons-material/Remove';
 
 const Basket = ({ showCheckoutButton = true }) => {
   const { basket, removeFromBasket, increaseQuantity, decreaseQuantity } = useContext(BasketContext);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
 
   const handleRemoveFromBasket = (index) => {
     removeFromBasket(index);
+  };
+
+  const handleSnackbarClose = () => {
+    setOpenSnackbar(false);
+  };
+
+  const handleProceedToCheckout = () => {
+    if (user) {
+      navigate('/checkout');
+    } else {
+      setOpenSnackbar(true);
+    }
   };
 
   const totalSum = basket.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -67,18 +89,20 @@ const Basket = ({ showCheckoutButton = true }) => {
           </Table>
         </TableContainer>
       )}
-      {/* {showCheckoutButton && ( */}
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
           <Button
             variant="contained"
             color="primary"
-            component={Link}
-            to="/checkout"
+            onClick={handleProceedToCheckout}
           >
             Proceed to Checkout
           </Button>
         </Box>
-      {/* )} */}
+      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleSnackbarClose}>
+        <Alert onClose={handleSnackbarClose} severity="warning" sx={{ width: '100%' }}>
+          You must sign in first to proceed to checkout.
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

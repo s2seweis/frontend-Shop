@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Card, CardContent, Typography, Button } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Button, Box } from '@mui/material';
 import { BasketContext } from '../BasketContext';
 
 const ProductItem = ({ item }) => {
@@ -11,6 +11,12 @@ const ProductItem = ({ item }) => {
 
   return (
     <Card>
+      <CardMedia
+        component="img"
+        height="120"
+        image={item.imageUrl}
+        alt={item.name}
+      />
       <CardContent>
         <Typography variant="h5" component="div">
           {item.name}
@@ -21,9 +27,11 @@ const ProductItem = ({ item }) => {
         <Typography variant="h6" color="text.primary">
           ${item.price}
         </Typography>
-        <Button variant="contained" color="primary" onClick={handleAddToBasket}>
-          Add to Basket
-        </Button>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Button variant="contained" color="primary" onClick={handleAddToBasket}>
+            Add to Basket
+          </Button>
+        </Box>
       </CardContent>
     </Card>
   );

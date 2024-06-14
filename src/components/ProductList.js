@@ -1,40 +1,87 @@
-import React from 'react';
-import categories from '../data/categoriesData';
+import React, { useState } from 'react';
+import categoriesData from '../data/categoriesData';
 import ProductItem from './ProductItem';
-import { Typography, Box } from '@mui/material';
+import { Typography, Box, Select, MenuItem, FormControl, InputLabel, TextField } from '@mui/material';
 
 const ProductList = () => {
+  const [selectedCategory, setSelectedCategory] = useState('Shirts');
+  const [sortOrder, setSortOrder] = useState('asc');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
+  };
+
+  const handleSortChange = (event) => {
+    setSortOrder(event.target.value);
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const sortedItems = categoriesData
+    .find(category => category.name === selectedCategory)
+    .items.filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase()))
+    .sort((a, b) => {
+      if (sortOrder === 'asc') {
+        return a.name.localeCompare(b.name);
+      } else {
+        return b.name.localeCompare(a.name);
+      }
+    });
+
   return (
     <Box sx={{ p: 2 }}>
-      {categories.map((category, index) => (
-        <Box key={index} sx={{ mb: 4 }}>
-          <Typography variant="h4" gutterBottom>
-            {category.name}
-          </Typography>
-          <Box
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: 3,
-              '@media (min-width: 1200px)': {
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              },
-              '@media (min-width: 600px) and (max-width: 1199px)': {
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              },
-              '@media (max-width: 599px)': {
-                gridTemplateColumns: '1fr',
-              },
-            }}
-          >
-            {category.items.map((item, itemIndex) => (
-              <Box key={itemIndex} sx={{ p: 1 }}>
-                <ProductItem item={item} />
-              </Box>
-            ))}
-          </Box>
+      <FormControl fullWidth sx={{ mb: 2 }}>
+        <InputLabel>Category</InputLabel>
+        <Select value={selectedCategory} onChange={handleCategoryChange}>
+          {categoriesData.map((category, index) => (
+            <MenuItem key={index} value={category.name}>
+              {category.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <FormControl fullWidth sx={{ mb: 2 }}>
+        <InputLabel>Sort By Name</InputLabel>
+        <Select value={sortOrder} onChange={handleSortChange}>
+          <MenuItem value="asc">Ascending</MenuItem>
+          <MenuItem value="desc">Descending</MenuItem>
+        </Select>
+      </FormControl>
+      <TextField
+        fullWidth
+        sx={{ mb: 2 }}
+        label="Search"
+        variant="outlined"
+        value={searchQuery}
+        onChange={handleSearchChange}
+      />
+      <Box sx={{ mb: 4 }}>
+        <Typography variant="h4" gutterBottom>
+          {selectedCategory}
+        </Typography>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: 'repeat(1, 1fr)',
+              sm: 'repeat(2, 1fr)',
+              md: 'repeat(3, 1fr)',
+              lg: 'repeat(3, 1fr)',
+              xl: 'repeat(3, 1fr)',
+            },
+            gap: 3,
+          }}
+        >
+          {sortedItems.map((item, itemIndex) => (
+            <Box key={itemIndex} sx={{ p: 1 }}>
+              <ProductItem item={item} />
+            </Box>
+          ))}
         </Box>
-      ))}
+      </Box>
     </Box>
   );
 };

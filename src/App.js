@@ -1,7 +1,15 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink, useNavigate } from 'react-router-dom';
-import { Container, CssBaseline, AppBar, Toolbar, Typography, Button, Switch as MuiSwitch, ThemeProvider, createTheme, Badge, IconButton, Drawer, Box, List, ListItem, ListItemText } from '@mui/material';
+import {
+  Container, CssBaseline, AppBar, Toolbar, Typography, Button, Switch as MuiSwitch, ThemeProvider,
+  createTheme, Badge, IconButton, Drawer, Box, List, ListItem, ListItemText, useMediaQuery, FormControl,
+  InputLabel, Select, MenuItem, Menu, Snackbar, Alert
+} from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
+import MenuIcon from '@mui/icons-material/Menu';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -10,12 +18,31 @@ import Checkout from './components/Checkout';
 import Login from './components/Login';
 import ProductList from './components/ProductList';
 import RegisterPage from './components/Register';
-import { BasketContext, BasketProvider } from './BasketContext';
+import { BasketContext } from './BasketContext';
+import LandingPage2 from './LandingPageV2';
+import withLoader from './hoc/withLoader';
+import { LoadingProvider } from './hoc/LoadingContext';
+
+const LandingPage2WithLoader = withLoader(LandingPage2);
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isBasketDrawerOpen, setIsBasketDrawerOpen] = useState(false);
+  const [isMenuDrawerOpen, setIsMenuDrawerOpen] = useState(false);
+  const [navSelection, setNavSelection] = useState('');
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const { basket } = useContext(BasketContext);
+  const isSmallScreen = useMediaQuery('(max-width:600px)');
+  const isLargeScreen = useMediaQuery('(min-width:600px)');
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -29,58 +56,141 @@ const App = () => {
 
   const basketQuantity = basket.reduce((acc, item) => acc + item.quantity, 0);
 
-  const toggleDrawer = (open) => () => {
-    setIsDrawerOpen(open);
+  const toggleBasketDrawer = (open) => () => {
+    setIsBasketDrawerOpen(open);
+  };
+
+  const toggleMenuDrawer = (open) => () => {
+    setIsMenuDrawerOpen(open);
+  };
+
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleSignOut = () => {
+    localStorage.removeItem('user');
+    setUser(null);
+    handleMenuClose();
+    window.location.href = '/'; // Redirect to the login page
+  };
+
+  const handleSnackbarClose = () => {
+    setOpenSnackbar(false);
   };
 
   return (
     <ThemeProvider theme={theme}>
+      <LoadingProvider>
       <CssBaseline />
       <Router>
         <AppBar position="static">
           <Toolbar>
-            <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              Simple Shop
-            </Typography>
-            <Button color="inherit" component={NavLink} to="/product-list" exact>
-              Home
-            </Button>
-            <IconButton color="inherit" onClick={toggleDrawer(true)}>
+            {isSmallScreen && (
+              <IconButton style={{ marginRight: "35px" }} edge="start" color="inherit" onClick={toggleMenuDrawer(true)}>
+                <MenuIcon />
+              </IconButton>
+            )}
+            {isLargeScreen && (
+              <Typography variant="h6" sx={{ flexGrow: 1 }} component={NavLink} to="/home" style={{ textDecoration: 'none', color: 'inherit' }}>
+                General Luna Shop
+              </Typography>
+            )}
+            <FormControl sx={{ m: 1, minWidth: 120 }} variant="outlined">
+              <InputLabel id="nav-select-label" sx={{ color: 'inherit' }}>Navigate</InputLabel>
+              <Select
+                labelId="nav-select-label"
+                id="nav-select"
+                value={navSelection}
+                onChange={(event) => setNavSelection(event.target.value)}
+                label="Navigate"
+                sx={{ color: 'inherit' }}
+              >
+                <MenuItem component={NavLink} value="shop" to="/shop">Shop</MenuItem>
+                <MenuItem component={NavLink} value="home" to="/home">Home</MenuItem>
+                <MenuItem component={NavLink} value="login" to="/">Login</MenuItem>
+                <MenuItem component={NavLink} value="register" to="/register">Register</MenuItem>
+              </Select>
+            </FormControl>
+            <IconButton color="inherit" onClick={toggleBasketDrawer(true)}>
               <Badge badgeContent={basketQuantity} color="secondary">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
-            <Button color="inherit" component={NavLink} to="/checkout">
-              Checkout
-            </Button>
-            <Button color="inherit" component={NavLink} to="/">
-              Login
-            </Button>
+            <IconButton color="inherit" onClick={handleMenuClick}>
+              <AccountCircleIcon />
+            </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+            >
+              {user ? (
+                <>
+                  <MenuItem>
+                    <AccountCircleIcon />
+                    <Typography variant="body1" sx={{ ml: 1 }}>
+                      {user.username}
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem onClick={handleSignOut}>
+                    <LogoutIcon />
+                    <Typography variant="body1" sx={{ ml: 1 }}>
+                      Signout
+                    </Typography>
+                  </MenuItem>
+                </>
+              ) : (
+                <MenuItem component={NavLink} to="/" onClick={handleMenuClose}>
+                  <LoginIcon />
+                  <Typography variant="body1" sx={{ ml: 1 }}>
+                    Login
+                  </Typography>
+                </MenuItem>
+              )}
+            </Menu>
             <MuiSwitch checked={darkMode} onChange={toggleDarkMode} />
           </Toolbar>
         </AppBar>
-        <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer(false)}>
+        <Drawer anchor="right" open={isBasketDrawerOpen} onClose={toggleBasketDrawer(false)}>
           <Box sx={{ width: 350, p: 2 }}>
-            <BasketDrawer onClose={toggleDrawer(false)} />
+            <BasketDrawer onClose={toggleBasketDrawer(false)} user={user} setOpenSnackbar={setOpenSnackbar} />
+          </Box>
+        </Drawer>
+        <Drawer anchor="left" open={isMenuDrawerOpen} onClose={toggleMenuDrawer(false)}>
+          <Box sx={{ width: 250, p: 2 }}>
+            <MenuDrawer onClose={toggleMenuDrawer(false)} />
           </Box>
         </Drawer>
         <Container>
           <Routes>
-            <Route path="/product-list" element={<ProductList />} />
+            <Route path="/shop" element={<ProductList />} />
             <Route path="/basket" element={<Basket showCheckoutButton={false} />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/home" element={<LandingPage2WithLoader />} />
+            {/* <Route path="/home" element={<LandingPage1 />} /> */}
           </Routes>
         </Container>
       </Router>
+      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleSnackbarClose}>
+        <Alert onClose={handleSnackbarClose} severity="warning" sx={{ width: '100%' }}>
+          You must sign in first to proceed to checkout.
+        </Alert>
+      </Snackbar>
+      </LoadingProvider>
     </ThemeProvider>
   );
 };
 
-const BasketDrawer = ({ onClose }) => {
-  const { basket, removeFromBasket, increaseQuantity, decreaseQuantity } = useContext(BasketContext);
+const BasketDrawer = ({ onClose, user, setOpenSnackbar }) => {
   const navigate = useNavigate();
+  const { basket, removeFromBasket, increaseQuantity, decreaseQuantity } = useContext(BasketContext);
 
   const handleNavigateToBasket = () => {
     onClose();
@@ -88,8 +198,12 @@ const BasketDrawer = ({ onClose }) => {
   };
 
   const handleNavigateToCheckout = () => {
-    onClose();
-    navigate('/checkout');
+    if (user) {
+      onClose();
+      navigate('/checkout');
+    } else {
+      setOpenSnackbar(true);
+    }
   };
 
   const totalSum = basket.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -133,6 +247,32 @@ const BasketDrawer = ({ onClose }) => {
           </Box>
         </div>
       )}
+    </div>
+  );
+};
+
+const MenuDrawer = ({ onClose }) => {
+  const handleNavigate = (path) => {
+    onClose();
+    window.location.href = path;
+  };
+
+  return (
+    <div>
+      <Typography variant="h4" gutterBottom>
+        Menu
+      </Typography>
+      <List>
+        <ListItem button onClick={() => handleNavigate('/home')}>
+          <ListItemText primary="Home" />
+        </ListItem>
+        <ListItem button onClick={() => handleNavigate('/register')}>
+          <ListItemText primary="Register" />
+        </ListItem>
+        <ListItem button onClick={() => handleNavigate('/')}>
+          <ListItemText primary="Login" />
+        </ListItem>
+      </List>
     </div>
   );
 };

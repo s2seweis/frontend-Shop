@@ -1,9 +1,18 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
 export const BasketContext = createContext();
 
 export const BasketProvider = ({ children }) => {
-  const [basket, setBasket] = useState([]);
+  const [basket, setBasket] = useState(() => {
+    // Load basket from local storage or return an empty array
+    const savedBasket = localStorage.getItem('basket');
+    return savedBasket ? JSON.parse(savedBasket) : [];
+  });
+
+  useEffect(() => {
+    // Save basket to local storage whenever it changes
+    localStorage.setItem('basket', JSON.stringify(basket));
+  }, [basket]);
 
   const addToBasket = (item) => {
     const existingItem = basket.find((basketItem) => basketItem.name === item.name);
