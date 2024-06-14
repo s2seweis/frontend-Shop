@@ -92,7 +92,7 @@ const Basket = ({ showCheckoutButton = true }) => {
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
           <Button
             variant="contained"
-            color="primary"
+            color="secondary"
             onClick={handleProceedToCheckout}
           >
             Proceed to Checkout
