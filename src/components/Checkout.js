@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Typography, Stepper, Step, StepLabel, Box } from '@mui/material';
-import { Formik, Field, Form } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import CheckoutStep1 from './CheckoutStep1';
 import CheckoutStep2 from './CheckoutStep2';

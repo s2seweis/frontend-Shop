@@ -19,11 +19,11 @@ const LandingPage2 = () => {
   const [loading, setLoading] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  // const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const handleReadMore = () => {
-    setShowMore(!showMore);
-  };
+  // const handleReadMore = () => {
+  //   setShowMore(!showMore);
+  // };
 
   useEffect(() => {
     // Simulate a loading process
