@@ -1,10 +1,13 @@
 import React from 'react';
 import { RadioGroup, FormControlLabel, Radio, Button, Box, Typography } from '@mui/material';
-import { Field, Form, ErrorMessage } from 'formik';
+import { Field, Form, ErrorMessage, useFormikContext } from 'formik';
 import { useTheme } from '@mui/material/styles';
 
 const CheckoutStep2 = ({ handleBack, handleNext }) => {
   const theme = useTheme();
+  const { values } = useFormikContext();
+
+  const isPaymentMethodSelected = values.paymentMethod;
 
   return (
     <div>
@@ -39,7 +42,7 @@ const CheckoutStep2 = ({ handleBack, handleNext }) => {
           <Button variant="contained" color="primary" onClick={handleBack}>
             Back
           </Button>
-          <Button variant="contained" color="primary" onClick={handleNext}>
+          <Button variant="contained" color="primary" onClick={handleNext} disabled={!isPaymentMethodSelected}>
             Next
           </Button>
         </Box>

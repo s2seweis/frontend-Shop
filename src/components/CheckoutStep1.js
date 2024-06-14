@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { TextField, Button, Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
-import { Field, Form, ErrorMessage } from 'formik';
+import { Field, Form, ErrorMessage, useFormikContext } from 'formik';
 import { useTheme } from '@mui/material/styles';
 import { BasketContext } from '../BasketContext';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -10,6 +10,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 const CheckoutStep1 = ({ handleNext }) => {
   const theme = useTheme();
   const { basket, removeFromBasket, increaseQuantity, decreaseQuantity } = useContext(BasketContext);
+  const { isValid, dirty } = useFormikContext();
 
   const handleRemoveFromBasket = (index) => {
     removeFromBasket(index);
@@ -127,7 +128,7 @@ const CheckoutStep1 = ({ handleNext }) => {
             />
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
-            <Button style={{marginBottom:"15px"}} variant="contained" color="primary" onClick={handleNext}>
+            <Button style={{ marginBottom: "15px" }} variant="contained" color="primary" onClick={handleNext} disabled={!isValid || !dirty}>
               Next
             </Button>
           </Box>

@@ -23,7 +23,7 @@ const CheckoutStep3 = ({ handleBack, values }) => {
   return (
     <Form>
       <Typography variant="h5" gutterBottom sx={{ color: theme.palette.text.primary }}>
-        Order Summary
+        Delivery Adress Summary
       </Typography>
       <Typography variant="body1" gutterBottom sx={{ color: theme.palette.text.primary }}>
         <strong>Name:</strong> {values.name}
