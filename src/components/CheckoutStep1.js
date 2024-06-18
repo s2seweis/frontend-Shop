@@ -8,7 +8,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
 const CheckoutStep1 = ({ handleNext }) => {
-  const theme = useTheme();
+  // const theme = useTheme();
   const { basket, removeFromBasket, increaseQuantity, decreaseQuantity } = useContext(BasketContext);
   const { isValid, dirty } = useFormikContext();
 
