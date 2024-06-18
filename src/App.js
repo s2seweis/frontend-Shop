@@ -21,7 +21,6 @@ import ProductList from './components/ProductList';
 import RegisterPage from './components/Register';
 import { BasketContext } from './BasketContext';
 import LandingPage1 from './LandingPageV1';
-// import LandingPage2 from './LandingPageV2';
 import withLoader from './hoc/withLoader';
 import { LoadingProvider } from './hoc/LoadingContext';
 import SideMenu from './components/SideMenu';
@@ -31,7 +30,6 @@ import Contact from './components/Contact';
 import Imprint from './components/Imprint';
 
 const LandingPage1WithLoader = withLoader(LandingPage1);
-// const LandingPage2WithLoader = withLoader(LandingPage2);
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -121,7 +119,6 @@ const App = () => {
                   <MenuItem component={NavLink} value="home" to="/">Home</MenuItem>
                   <MenuItem component={NavLink} value="shop" to="/shop">Shop</MenuItem>
                   <MenuItem component={NavLink} value="login" to="/login">Login</MenuItem>
-                  {/* <MenuItem component={NavLink} value="register" to="/register">Register</MenuItem> */}
                   <MenuItem component={NavLink} value="contact" to="/contact">Contact</MenuItem>
                 </Select>
               </FormControl>
@@ -186,7 +183,6 @@ const App = () => {
               <Route path="/shop/:id" element={<ProductItemView />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/imprint" element={<Imprint />} />
-              {/* <Route path="/" element={<LandingPage2WithLoader />} /> */}
             </Routes>
           </Container>
           <Footer />
