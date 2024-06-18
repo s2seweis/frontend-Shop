@@ -21,11 +21,11 @@ const CheckoutStep1 = ({ handleNext }) => {
   return (
     <div>
       <Box sx={{ mt: 4 }}>
-        <Typography variant="h5" gutterBottom sx={{ color: theme.palette.text.primary }}>
+        <Typography variant="h5" gutterBottom color="textPrimary">
           Basket Summary
         </Typography>
         {basket.length === 0 ? (
-          <Typography variant="body1" sx={{ color: theme.palette.text.primary }}>Your basket is empty.</Typography>
+          <Typography variant="body1" color="textPrimary">Your basket is empty.</Typography>
         ) : (
           <TableContainer component={Paper}>
             <Table>
@@ -64,10 +64,10 @@ const CheckoutStep1 = ({ handleNext }) => {
                 ))}
                 <TableRow>
                   <TableCell colSpan={4} align="right">
-                    <Typography variant="h6" sx={{ color: theme.palette.text.primary }}>Total:</Typography>
+                    <Typography variant="h6" color="textPrimary">Total:</Typography>
                   </TableCell>
                   <TableCell align="right">
-                    <Typography variant="h6" sx={{ color: theme.palette.text.primary }}>${totalSum.toFixed(2)}</Typography>
+                    <Typography variant="h6" color="textPrimary">${totalSum.toFixed(2)}</Typography>
                   </TableCell>
                   <TableCell />
                 </TableRow>
@@ -78,7 +78,7 @@ const CheckoutStep1 = ({ handleNext }) => {
       </Box>
 
       <Box sx={{ mt: 4 }}>
-        <Typography variant="h5" gutterBottom sx={{ color: theme.palette.text.primary }}>
+        <Typography variant="h5" gutterBottom color="textPrimary">
           Delivery Information
         </Typography>
         <Form>

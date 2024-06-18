@@ -55,7 +55,7 @@ const Checkout = () => {
     >
       {({ values }) => (
         <Form>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" gutterBottom color="textPrimary">
             Checkout
           </Typography>
           <Stepper activeStep={activeStep}>

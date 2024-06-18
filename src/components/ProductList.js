@@ -6,6 +6,7 @@ import { Typography, Box, Select, MenuItem, FormControl, InputLabel, TextField }
 const ProductList = () => {
   const [selectedCategory, setSelectedCategory] = useState('Shirts');
   const [sortOrder, setSortOrder] = useState('asc');
+  const [selectedGender, setSelectedGender] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleCategoryChange = (event) => {
@@ -16,18 +17,22 @@ const ProductList = () => {
     setSortOrder(event.target.value);
   };
 
+  const handleGenderChange = (event) => {
+    setSelectedGender(event.target.value);
+  };
+
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
 
   const sortedItems = categoriesData
     .find(category => category.name === selectedCategory)
-    .items.filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase()))
+    .items.filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase()) && (selectedGender === '' || item.gender === selectedGender))
     .sort((a, b) => {
       if (sortOrder === 'asc') {
-        return a.name.localeCompare(b.name);
+        return a.price - b.price;
       } else {
-        return b.name.localeCompare(a.name);
+        return b.price - a.price;
       }
     });
 
@@ -44,10 +49,18 @@ const ProductList = () => {
         </Select>
       </FormControl>
       <FormControl fullWidth sx={{ mb: 2 }}>
-        <InputLabel>Sort By Name</InputLabel>
+        <InputLabel>Sort By Price</InputLabel>
         <Select value={sortOrder} onChange={handleSortChange}>
           <MenuItem value="asc">Ascending</MenuItem>
           <MenuItem value="desc">Descending</MenuItem>
+        </Select>
+      </FormControl>
+      <FormControl fullWidth sx={{ mb: 2 }}>
+        <InputLabel>Filter By Gender</InputLabel>
+        <Select value={selectedGender} onChange={handleGenderChange}>
+          <MenuItem value="">All</MenuItem>
+          <MenuItem value="men">Men</MenuItem>
+          <MenuItem value="women">Women</MenuItem>
         </Select>
       </FormControl>
       <TextField

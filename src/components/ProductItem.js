@@ -1,16 +1,23 @@
 import React, { useContext } from 'react';
 import { Card, CardContent, CardMedia, Typography, Button, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { BasketContext } from '../BasketContext';
 
 const ProductItem = ({ item }) => {
   const { addToBasket } = useContext(BasketContext);
+  const navigate = useNavigate();
 
-  const handleAddToBasket = () => {
+  const handleAddToBasket = (e) => {
+    e.stopPropagation();
     addToBasket(item);
   };
 
+  const handleCardClick = () => {
+    navigate(`/shop/${item.id}`);
+  };
+
   return (
-    <Card>
+    <Card onClick={handleCardClick} sx={{ cursor: 'pointer' }}>
       <CardMedia
         component="img"
         height="120"

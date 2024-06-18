@@ -16,22 +16,15 @@ const fadeIn = keyframes`
 `;
 
 const LandingPage2 = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const theme = useTheme();
-  // const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
-  // const handleReadMore = () => {
-  //   setShowMore(!showMore);
-  // };
 
   useEffect(() => {
-    // Simulate a loading process
     setTimeout(() => {
       setLoading(false);
     }, 2000); // Adjust the timeout as needed
   }, []);
 
-  // Get the first 4 products from the Shirts category
   const shirts = categories.find(category => category.name === 'Shirts').items.slice(0, 4);
 
   if (loading) {
@@ -42,6 +35,7 @@ const LandingPage2 = () => {
           justifyContent: 'center',
           alignItems: 'center',
           minHeight: '100vh',
+          // marginTop:'20px',
           background: theme.palette.mode === 'dark' ? 'linear-gradient(to right, #121212, #424242)' : 'linear-gradient(to right, #1976d2, #42a5f5)',
         }}
       >
@@ -51,188 +45,292 @@ const LandingPage2 = () => {
   }
 
   return (
-    <Box
-      sx={{
-        position: 'relative',
-        overflow: 'hidden',
-        minHeight: '100vh',
-        background: theme.palette.mode === 'dark' ? 'linear-gradient(to right, #121212, #424242)' : 'linear-gradient(to right, #1976d2, #42a5f5)',
-        padding: { xs: '20px', md: '60px' },
-        marginTop: '20px',
-        marginBottom: '20px',
-      }}
-    >
-      <Container sx={{ position: 'relative', zIndex: 1, pt: 8 }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 6 }}>
-          <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Typography
-              variant="h2"
-              align="center"
-              gutterBottom
-              sx={{ fontWeight: 'bold', color: '#fff', animation: `${fadeIn} 2s ease-in` }}
-            >
-              Welcome to General Shop
-            </Typography>
-            <Box
-              sx={{
-                position: 'absolute',
-                left: '-28%',
-                top: '50%',
-                width: '360px',
-                height: '260px',
-                background: 'rgb(154 185 219)', // Adjust the color as needed
-                zIndex: '-1',
-                opacity: 1,
-                filter: 'blur(45px)',
-              }}
-            />
-          </Box>
-          <Typography
-            variant="h5"
-            align="center"
-            gutterBottom
-            sx={{ mb: 3, color: '#fff', animation: `${fadeIn} 2s ease-in`, animationDelay: '0.5s' }}
+    <Box sx={{ overflow: 'hidden', minHeight: '100vh' }}>
+      <Box
+        sx={{
+          height: '100vh',
+          background: theme.palette.mode === 'dark' ? 'linear-gradient(to right, #121212, #424242)' : 'linear-gradient(to right, #1976d2, #42a5f5)',
+          padding: { xs: '0px', md: '0px' },
+          marginBottom: '20px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop:'20px'
+        }}
+      >
+        <Container sx={{ position: 'relative', zIndex: 1, pt: 8 }}>
+          <Box
+            sx={{
+              marginBottom: '20px',
+              padding: '20px',
+              borderRadius: '8px',
+              textAlign: 'center',
+            }}
           >
-            Your One-Stop Shop for Sustainable Products
-          </Typography>
-          <Carousel
-            showThumbs={false}
-            autoPlay
-            infiniteLoop
-            showStatus={false}
-            showIndicators={false}
-            interval={3000}
-            transitionTime={600}
-          >
-            {['https://cache.tradeinn.com/images/brand-page/banner_894.jpg',
-              'https://www.mainlymaldives.co.uk/wp-content/uploads/2016/09/Surfing-banner.jpg',
-              'https://www.cukeragency.com/prodcuker/media/portfolio/2021/03/09/quicksilver_casestudy_responsive_website_mainbanner.jpg'
-            ].map((src, index) => (
-              <Box
-                key={index}
-                sx={{
-                  position: 'relative',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <Box
-                  component="img"
-                  src={src}
-                  alt={`Banner ${index + 1}`}
-                  sx={{
-                    width: '100%',
-                    height: { xs: '200px', md: '400px' },
-                    mb: 6,
-                    borderRadius: 2,
-                    animation: `${fadeIn} 2s ease-in`,
-                    objectFit: 'cover',
-                  }}
-                />
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 6 }}>
+              <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Typography
+                  variant="h3"
+                  align="center"
+                  gutterBottom
+                  sx={{ fontWeight: 'bold', color: theme.palette.mode === 'dark' ? '#fff' : '#000', animation: `${fadeIn} 2s ease-in` }}
+                >
+                  General Luna Shop
+                </Typography>
                 <Box
                   sx={{
                     position: 'absolute',
+                    left: '-28%',
                     top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    textAlign: 'center',
-                    color: '#fff',
+                    width: '360px',
+                    height: '260px',
+                    background: 'rgb(154 185 219)', 
+                    zIndex: '-1',
+                    opacity: 1,
+                    filter: 'blur(45px)',
                   }}
-                >
-                  <Typography variant="h4" sx={{ mb: 2 }}>
-                    Discover Our Products
-                  </Typography>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    component={NavLink}
-                    to="/shop"
-                  >
-                    Shop Now
-                  </Button>
-                </Box>
+                />
               </Box>
-            ))}
-          </Carousel>
-        </Box>
+              <Typography
+                variant="h5"
+                align="center"
+                gutterBottom
+                sx={{ mb: 3, color: theme.palette.mode === 'dark' ? '#fff' : '#000', animation: `${fadeIn} 2s ease-in`, animationDelay: '0.5s' }}
+              >
+                Your One-Stop Shop for Sustainable Products
+              </Typography>
+              <Carousel
+                showThumbs={false}
+                autoPlay
+                infiniteLoop
+                showStatus={false}
+                showIndicators={false}
+                interval={3000}
+                transitionTime={600}
+              >
+                {['https://cache.tradeinn.com/images/brand-page/banner_894.jpg',
+                  'https://www.mainlymaldives.co.uk/wp-content/uploads/2016/09/Surfing-banner.jpg',
+                  'https://www.cukeragency.com/prodcuker/media/portfolio/2021/03/09/quicksilver_casestudy_responsive_website_mainbanner.jpg'
+                ].map((src, index) => (
+                  <Box
+                    key={index}
+                    sx={{
+                      position: 'relative',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      src={src}
+                      alt={`Banner ${index + 1}`}
+                      sx={{
+                        width: '100%',
+                        height: { xs: '200px', md: '400px' },
+                        mb: 6,
+                        borderRadius: 2,
+                        animation: `${fadeIn} 2s ease-in`,
+                        objectFit: 'cover',
+                      }}
+                    />
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        textAlign: 'center',
+                        color: '#fff',
+                      }}
+                    >
+                      <Typography variant="h4" sx={{ mb: 2 }}>
+                        Discover Our Products
+                      </Typography>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        component={NavLink}
+                        to="/shop"
+                      >
+                        Shop Now
+                      </Button>
+                    </Box>
+                  </Box>
+                ))}
+              </Carousel>
+            </Box>
+          </Box>
+        </Container>
+      </Box>
 
-        <Box
-          sx={{
-            mb: 6,
-            backgroundColor: '#fff',
-            padding: '15px',
-            borderRadius: '8px',
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-          }}
-        >
-          <Typography
-            variant="h4"
-            align="center"
-            gutterBottom
-            sx={{ color: theme.palette.mode === 'dark' ? '#000' : '#1976d2', animation: `${fadeIn} 2s ease-in`, animationDelay: '3.5s' }}
+      <Box
+        sx={{
+          background: theme.palette.mode === 'dark' ? 'linear-gradient(to right, #121212, #424242)' : 'linear-gradient(to right, #1976d2, #42a5f5)',
+          padding: { xs: '20px', md: '60px' },
+          marginBottom: '20px',
+        }}
+      >
+        <Container sx={{ position: 'relative', zIndex: 1 }}>
+          <Box
+            sx={{
+              marginBottom: '20px',
+              backgroundColor: theme.palette.mode === 'dark' ? '#333' : '#fff',
+              padding: '20px',
+              borderRadius: '8px',
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+              position: 'relative'
+            }}
           >
-            Featured Products
-          </Typography>
-          <Grid container spacing={4} justifyContent="center">
-            {shirts.map((item, index) => (
-              <Grid item xs={12} sm={6} md={3} key={index}>
-                <Card sx={{ transition: 'transform 0.3s', '&:hover': { transform: 'scale(1.05)' }, animation: `${fadeIn} 2s ease-in`, animationDelay: `${4 + index * 0.5}s` }}>
-                  <CardMedia
-                    component="img"
-                    height="200"
-                    image={item.imageUrl}
-                    alt={item.name}
-                  />
-                  <CardContent>
-                    <Typography variant="h6" component="div">
-                      {item.name}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {item.description}
-                    </Typography>
-                    <Button component={NavLink} to="/shop" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
-                      View Product
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 6 }}>
-          <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Typography
               variant="h4"
               align="center"
               gutterBottom
-              sx={{ color: '#fff', animation: `${fadeIn} 2s ease-in`, animationDelay: '6s' }}
+              sx={{ color: theme.palette.mode === 'dark' ? '#fff' : '#1976d2', animation: `${fadeIn} 2s ease-in`, animationDelay: '3.5s' }}
             >
-              About General Luna Shop
+              Featured Products
             </Typography>
+            <Grid container spacing={4} justifyContent="center">
+              {shirts.map((item, index) => (
+                <Grid item xs={12} sm={6} md={3} key={index}>
+                  <Card sx={{ backgroundColor: theme.palette.mode === 'dark' ? '#424242' : '#fff', transition: 'transform 0.3s', '&:hover': { transform: 'scale(1.05)' }, animation: `${fadeIn} 2s ease-in`, animationDelay: `${4 + index * 0.5}s` }}>
+                    <CardMedia
+                      component="img"
+                      height="200"
+                      image={item.imageUrl}
+                      alt={item.name}
+                    />
+                    <CardContent>
+                      <Typography variant="h6" component="div" sx={{ color: theme.palette.mode === 'dark' ? '#fff' : '#000' }}>
+                        {item.name}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary" sx={{ color: theme.palette.mode === 'dark' ? '#ddd' : '#000' }}>
+                        {item.description}
+                      </Typography>
+                      <Button component={NavLink} to="/shop" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+                        View Product
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
             <Box
               sx={{
                 position: 'absolute',
-                left: '80%',
-                top: '50%',
+                right: '54%',
+                bottom: '0%',
                 width: '360px',
-                height: '260px',
-                background: 'rgb(154 185 219)', // Adjust the color as needed
+                height: '80%',
+                background: 'rgb(154 185 219)', 
                 zIndex: '-1',
                 opacity: 1,
                 filter: 'blur(45px)',
               }}
             />
           </Box>
-          <Typography
-            variant="body1"
-            sx={{ color: '#fff', animation: `${fadeIn} 2s ease-in`, animationDelay: '6.5s', mt: 2 }}
+        </Container>
+      </Box>
+
+      <Box
+        sx={{
+          background: theme.palette.mode === 'dark' ? 'linear-gradient(to right, #121212, #424242)' : 'linear-gradient(to right, #1976d2, #42a5f5)',
+          padding: { xs: '20px', md: '60px' },
+          marginBottom:"20px"
+        }}
+      >
+        <Container sx={{ position: 'relative', zIndex: 1 }}>
+          <Box
+            sx={{
+              marginBottom: '20px',
+              backgroundColor: theme.palette.mode === 'dark' ? '#333' : '#fff',
+              padding: '20px',
+              borderRadius: '8px',
+            }}
           >
-            General Luna Shop is dedicated to providing the best products while ensuring minimal environmental impact. Our products are sourced from sustainable materials, and we are committed to reducing waste and promoting a circular economy.
-          </Typography>
-        </Box>
-      </Container>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom:"20px" }}>
+              <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom:"20px" }}>
+                <Typography
+                  variant="h4"
+                  align="center"
+                  gutterBottom
+                  sx={{ color: theme.palette.mode === 'dark' ? '#fff' : '#000', animation: `${fadeIn} 2s ease-in`, animationDelay: '6s' }}
+                >
+                  About General Shop
+                </Typography>
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    left: '80%',
+                    top: '50%',
+                    width: '360px',
+                    height: '260px',
+                    background: 'rgb(154 185 219)', 
+                    zIndex: '-1',
+                    opacity: 1,
+                    filter: 'blur(45px)',
+                  }}
+                />
+              </Box>
+              <Typography
+                variant="body1"
+                sx={{ color: theme.palette.mode === 'dark' ? '#fff' : '#000', animation: `${fadeIn} 2s ease-in`, animationDelay: '6.5s', mt: 2 }}
+              >
+                General Shop is dedicated to providing the best products while ensuring minimal environmental impact. Our products are sourced from sustainable materials, and we are committed to reducing waste and promoting a circular economy.
+              </Typography>
+            </Box>
+          </Box>
+        </Container>
+      </Box>
+
+      <Box
+        sx={{
+          background: theme.palette.mode === 'dark' ? 'linear-gradient(to right, #121212, #424242)' : 'linear-gradient(to right, #1976d2, #42a5f5)',
+          padding: { xs: '20px', md: '60px' },
+          marginBottom: '20px',
+        }}
+      >
+        <Container sx={{ position: 'relative', zIndex: 1 }}>
+          <Box
+            sx={{
+              marginBottom: '20px',
+              backgroundColor: theme.palette.mode === 'dark' ? '#333' : '#fff',
+              padding: '20px',
+              borderRadius: '8px',
+              position: 'relative',
+              textAlign: 'center',
+            }}
+          >
+            <Typography
+              variant="h4"
+              align="center"
+              gutterBottom
+              sx={{ color: theme.palette.mode === 'dark' ? '#fff' : '#1976d2', animation: `${fadeIn} 2s ease-in`, animationDelay: '7s' }}
+            >
+              Sale - Up to 30% Off!
+            </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 3 }}>
+              <CardMedia
+                component="img"
+                height="200"
+                image="https://www.mainlymaldives.co.uk/wp-content/uploads/2016/09/Surfing-banner.jpg" // Replace with a relevant sale image
+                alt="Sale Image"
+                sx={{ borderRadius: '8px', animation: `${fadeIn} 2s ease-in`, animationDelay: '7.5s' }}
+              />
+            </Box>
+            <Button
+              variant="contained"
+              color="primary"
+              component={NavLink}
+              to="/shop"
+              sx={{ mt: 2, animation: `${fadeIn} 2s ease-in`, animationDelay: '8s' }}
+            >
+              Shop Now
+            </Button>
+          </Box>
+        </Container>
+      </Box>
     </Box>
   );
 };

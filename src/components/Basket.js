@@ -38,8 +38,8 @@ const Basket = ({ showCheckoutButton = true }) => {
   const totalSum = basket.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
-    <div>
-      <Typography variant="h4" gutterBottom>
+    <div style={{height:"91vh"}}>
+      <Typography variant="h4" gutterBottom color="textPrimary">
         Basket
       </Typography>
       {basket.length === 0 ? (

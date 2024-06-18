@@ -1,3 +1,4 @@
+// App.js
 import React, { useState, useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink, useNavigate } from 'react-router-dom';
 import {
@@ -19,11 +20,18 @@ import Login from './components/Login';
 import ProductList from './components/ProductList';
 import RegisterPage from './components/Register';
 import { BasketContext } from './BasketContext';
-import LandingPage2 from './LandingPageV2';
+import LandingPage1 from './LandingPageV1';
+// import LandingPage2 from './LandingPageV2';
 import withLoader from './hoc/withLoader';
 import { LoadingProvider } from './hoc/LoadingContext';
+import SideMenu from './components/SideMenu';
+import Footer from './components/Footer';
+import ProductItemView from './components/ProductItemView';
+import Contact from './components/Contact';
+import Imprint from './components/Imprint';
 
-const LandingPage2WithLoader = withLoader(LandingPage2);
+const LandingPage1WithLoader = withLoader(LandingPage1);
+// const LandingPage2WithLoader = withLoader(LandingPage2);
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -86,103 +94,108 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <LoadingProvider>
-      <CssBaseline />
-      <Router>
-        <AppBar position="static">
-          <Toolbar>
-            {isSmallScreen && (
-              <IconButton style={{ marginRight: "35px" }} edge="start" color="inherit" onClick={toggleMenuDrawer(true)}>
-                <MenuIcon />
-              </IconButton>
-            )}
-            {isLargeScreen && (
-              <Typography variant="h6" sx={{ flexGrow: 1 }} component={NavLink} to="/home" style={{ textDecoration: 'none', color: 'inherit' }}>
-                General Luna Shop
-              </Typography>
-            )}
-            <FormControl sx={{ m: 1, minWidth: 120 }} variant="outlined">
-              <InputLabel id="nav-select-label" sx={{ color: 'inherit' }}>Navigate</InputLabel>
-              <Select
-                labelId="nav-select-label"
-                id="nav-select"
-                value={navSelection}
-                onChange={(event) => setNavSelection(event.target.value)}
-                label="Navigate"
-                sx={{ color: 'inherit' }}
-              >
-                <MenuItem component={NavLink} value="shop" to="/shop">Shop</MenuItem>
-                <MenuItem component={NavLink} value="home" to="/home">Home</MenuItem>
-                <MenuItem component={NavLink} value="login" to="/">Login</MenuItem>
-                <MenuItem component={NavLink} value="register" to="/register">Register</MenuItem>
-              </Select>
-            </FormControl>
-            <IconButton color="inherit" onClick={toggleBasketDrawer(true)}>
-              <Badge badgeContent={basketQuantity} color="secondary">
-                <ShoppingCartIcon />
-              </Badge>
-            </IconButton>
-            <IconButton color="inherit" onClick={handleMenuClick}>
-              <AccountCircleIcon />
-            </IconButton>
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-            >
-              {user ? (
-                <>
-                  <MenuItem>
-                    <AccountCircleIcon />
-                    <Typography variant="body1" sx={{ ml: 1 }}>
-                      {user.username}
-                    </Typography>
-                  </MenuItem>
-                  <MenuItem onClick={handleSignOut}>
-                    <LogoutIcon />
-                    <Typography variant="body1" sx={{ ml: 1 }}>
-                      Signout
-                    </Typography>
-                  </MenuItem>
-                </>
-              ) : (
-                <MenuItem component={NavLink} to="/" onClick={handleMenuClose}>
-                  <LoginIcon />
-                  <Typography variant="body1" sx={{ ml: 1 }}>
-                    Login
-                  </Typography>
-                </MenuItem>
+        <CssBaseline />
+        <Router>
+          <AppBar position="static">
+            <Toolbar>
+              {isSmallScreen && (
+                <IconButton style={{ marginRight: "35px" }} edge="start" color="inherit" onClick={toggleMenuDrawer(true)}>
+                  <MenuIcon />
+                </IconButton>
               )}
-            </Menu>
-            <MuiSwitch checked={darkMode} onChange={toggleDarkMode} />
-          </Toolbar>
-        </AppBar>
-        <Drawer anchor="right" open={isBasketDrawerOpen} onClose={toggleBasketDrawer(false)}>
-          <Box sx={{ width: 350, p: 2 }}>
-            <BasketDrawer onClose={toggleBasketDrawer(false)} user={user} setOpenSnackbar={setOpenSnackbar} />
-          </Box>
-        </Drawer>
-        <Drawer anchor="left" open={isMenuDrawerOpen} onClose={toggleMenuDrawer(false)}>
-          <Box sx={{ width: 250, p: 2 }}>
-            <MenuDrawer onClose={toggleMenuDrawer(false)} />
-          </Box>
-        </Drawer>
-        <Container>
-          <Routes>
-            <Route path="/shop" element={<ProductList />} />
-            <Route path="/basket" element={<Basket showCheckoutButton={false} />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/" element={<Login />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/home" element={<LandingPage2WithLoader />} />
-            {/* <Route path="/home" element={<LandingPage1 />} /> */}
-          </Routes>
-        </Container>
-      </Router>
-      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleSnackbarClose}>
-        <Alert onClose={handleSnackbarClose} severity="warning" sx={{ width: '100%' }}>
-          You must sign in first to proceed to checkout.
-        </Alert>
-      </Snackbar>
+              {isLargeScreen && (
+                <Typography variant="h6" sx={{ flexGrow: 1 }} component={NavLink} to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  General Luna Shop
+                </Typography>
+              )}
+              <FormControl sx={{ m: 1, minWidth: 120 }} variant="outlined">
+                <InputLabel id="nav-select-label" sx={{ color: 'inherit' }}>Navigate</InputLabel>
+                <Select
+                  labelId="nav-select-label"
+                  id="nav-select"
+                  value={navSelection}
+                  onChange={(event) => setNavSelection(event.target.value)}
+                  label="Navigate"
+                  sx={{ color: 'inherit' }}
+                >
+                  <MenuItem component={NavLink} value="home" to="/">Home</MenuItem>
+                  <MenuItem component={NavLink} value="shop" to="/shop">Shop</MenuItem>
+                  <MenuItem component={NavLink} value="login" to="/login">Login</MenuItem>
+                  {/* <MenuItem component={NavLink} value="register" to="/register">Register</MenuItem> */}
+                  <MenuItem component={NavLink} value="contact" to="/contact">Contact</MenuItem>
+                </Select>
+              </FormControl>
+              <IconButton color="inherit" onClick={toggleBasketDrawer(true)}>
+                <Badge badgeContent={basketQuantity} color="secondary">
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+              <IconButton color="inherit" onClick={handleMenuClick}>
+                <AccountCircleIcon />
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+              >
+                {user ? (
+                  <>
+                    <MenuItem>
+                      <AccountCircleIcon />
+                      <Typography variant="body1" sx={{ ml: 1 }}>
+                        {user.username}
+                      </Typography>
+                    </MenuItem>
+                    <MenuItem onClick={handleSignOut}>
+                      <LogoutIcon />
+                      <Typography variant="body1" sx={{ ml: 1 }}>
+                        Signout
+                      </Typography>
+                    </MenuItem>
+                  </>
+                ) : (
+                  <MenuItem component={NavLink} to="/login" onClick={handleMenuClose}>
+                    <LoginIcon />
+                    <Typography variant="body1" sx={{ ml: 1 }}>
+                      Login
+                    </Typography>
+                  </MenuItem>
+                )}
+              </Menu>
+              <MuiSwitch checked={darkMode} onChange={toggleDarkMode} />
+            </Toolbar>
+          </AppBar>
+          <Drawer anchor="right" open={isBasketDrawerOpen} onClose={toggleBasketDrawer(false)}>
+            <Box sx={{ width: 350, p: 2 }}>
+              <BasketDrawer onClose={toggleBasketDrawer(false)} user={user} setOpenSnackbar={setOpenSnackbar} />
+            </Box>
+          </Drawer>
+          <Drawer anchor="left" open={isMenuDrawerOpen} onClose={toggleMenuDrawer(false)}>
+            <Box sx={{ width: 250, p: 2 }}>
+              <SideMenu onClose={toggleMenuDrawer(false)} />
+            </Box>
+          </Drawer>
+          <Container>
+            <Routes>
+              <Route path="/shop" element={<ProductList />} />
+              <Route path="/basket" element={<Basket showCheckoutButton={false} />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/" element={<LandingPage1WithLoader />} />
+              <Route path="/shop/:id" element={<ProductItemView />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/imprint" element={<Imprint />} />
+              {/* <Route path="/" element={<LandingPage2WithLoader />} /> */}
+            </Routes>
+          </Container>
+          <Footer />
+        </Router>
+        <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleSnackbarClose}>
+          <Alert onClose={handleSnackbarClose} severity="warning" sx={{ width: '100%' }}>
+            You must sign in first to proceed to checkout.
+          </Alert>
+        </Snackbar>
       </LoadingProvider>
     </ThemeProvider>
   );
@@ -247,32 +260,6 @@ const BasketDrawer = ({ onClose, user, setOpenSnackbar }) => {
           </Box>
         </div>
       )}
-    </div>
-  );
-};
-
-const MenuDrawer = ({ onClose }) => {
-  const handleNavigate = (path) => {
-    onClose();
-    window.location.href = path;
-  };
-
-  return (
-    <div>
-      <Typography variant="h4" gutterBottom>
-        Menu
-      </Typography>
-      <List>
-        <ListItem button onClick={() => handleNavigate('/home')}>
-          <ListItemText primary="Home" />
-        </ListItem>
-        <ListItem button onClick={() => handleNavigate('/register')}>
-          <ListItemText primary="Register" />
-        </ListItem>
-        <ListItem button onClick={() => handleNavigate('/')}>
-          <ListItemText primary="Login" />
-        </ListItem>
-      </List>
     </div>
   );
 };

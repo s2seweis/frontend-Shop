@@ -2,23 +2,30 @@ const categories = [
   {
     name: 'Shirts',
     items: [
-      { name: 'Laptop', description: 'High performance laptop', price: 999, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/eqyzt07071_quiksilver,w_plp0_frt1.jpg' },
-      { name: 'Smartphone', description: 'Latest model smartphone', price: 699, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/eqyzt07239_quiksilver,w_bsl0_frt1.jpg' },
-      { name: 'Tablet', description: 'Portable and powerful tablet', price: 499, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/eqyzt07223_quiksilver,w_bgc0_frt1.jpg' },
-      { name: 'Smartwatch', description: 'Wearable smart device', price: 199, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/eqyzt06534_quiksilver,w_bft0_frt1.jpg' },
-      { name: 'Headphones', description: 'Noise-cancelling headphones', price: 149, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/eqyzt07240_quiksilver,w_bsl0_frt1.jpg' },
-      { name: 'Camera', description: 'High resolution digital camera', price: 799, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/eqyzt07265_quiksilver,w_kvj0_frt1.jpg' },
+      { id: '1', name: 'Men Shirt 1', description: 'Performance shirt for men', price: 999, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/eqyzt06534_quiksilver,w_bft0_frt1.jpg', gender: 'men' },
+      { id: '2', name: 'Women Shirt 1', description: 'Latest model shirt for women', price: 699, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/eqwzt03113_quiksilver,w_wbb0_frt1.jpg', gender: 'women' },
+      { id: '3', name: 'Men Shirt 2', description: 'Portable and powerful shirt for men', price: 499, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/eqyzt07239_quiksilver,w_bsl0_frt1.jpg', gender: 'men' },
+      { id: '4', name: 'Women Shirt 2', description: 'Wearable smart shirt for women', price: 199, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/eqwzt03139_quiksilver,w_plp0_frt1.jpg', gender: 'women' },
+      { id: '5', name: 'Men Shirt 3', description: 'Noise-cancelling shirt for men', price: 149, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/eqyzt07263_quiksilver,w_byg0_frt1.jpg', gender: 'men' },
+      { id: '6', name: 'Women Shirt 3', description: 'High resolution shirt for women', price: 799, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/eqwzt03171_quiksilver,w_pgc0_frt1.jpg', gender: 'women' },
+      { id: '7', name: 'Men Shirt 4', description: 'Comfortable casual shirt for men', price: 249, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/aqyzt09560_quiksilver,w_bkq0_frt1.jpg', gender: 'men' },
+      { id: '8', name: 'Women Shirt 4', description: 'Stylish shirt for women', price: 299, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/eqwzt03149_quiksilver,w_bmy0_frt1.jpg', gender: 'women' },
     ],
   },
   {
-    name: 'Shorts',
+    name: 'Sweatshirt',
     items: [
-      { name: 'Fiction Novel', description: 'Bestselling fiction novel', price: 19, imageUrl: 'https://media2.sport-bittl.com/images/product_images/original_images/48441675774a_Quicksilver_Surfsilk_Massive_16_Boardshorts_Ju_blau.jpg' },
-      { name: 'Science Book', description: 'Informative science book', price: 29, imageUrl: 'https://media2.sport-bittl.com/images/product_images/original_images/48441678521a_Quicksilver_Everyday_Panel_16_Boardshorts_Jun_beach_glass.jpg' },
-      { name: 'Cooking Book', description: 'Delicious recipes and cooking tips', price: 22, imageUrl: 'https://ups.tujucdn.com/s60073/goods/19516/-2u1215f1b5d06c4ddd9ce789cf8bfac104.jpg?x-oss-process=image/resize,limit_0,m_pad,w_600,h_600/format,webp/interlace,1/quality,q_80' },
-      { name: 'Travel Guide', description: 'Comprehensive travel guide', price: 18, imageUrl: 'https://ups.tujucdn.com/s24777/goods/19475/-2u254ce2d84b8440d08b666a8fe00f26ae.png?x-oss-process=image/resize,limit_0,m_pad,w_600,h_600/format,webp/interlace,1/quality,q_80' },
+      { id: '1', name: 'Men Sweatshirt 1', description: 'Performance Sweatshirt for men', price: 999, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/eqyft04450_quiksilver,w_bft0_frt1.jpg', gender: 'men' },
+      { id: '2', name: 'Women Sweatshirt 1', description: 'Latest model Sweatshirt for women', price: 699, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/eqyft04890_quiksilver,w_kta0_frt1.jpg', gender: 'women' },
+      { id: '3', name: 'Men Sweatshirt 2', description: 'Portable and powerful Sweatshirt for men', price: 499, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/eqyft04813_quiksilver,w_kvjh_frt1.jpg', gender: 'men' },
+      { id: '4', name: 'Women Sweatshirt 2', description: 'Wearable smart Sweatshirt for women', price: 199, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/eqwft03081_quiksilver,w_byl0_frt1.jpg', gender: 'women' },
+      { id: '5', name: 'Men Sweatshirt 3', description: 'Noise-cancelling Sweatshirt for men', price: 149, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/eqyft04941_quiksilver,w_bqy0_frt1.jpg', gender: 'men' },
+      { id: '6', name: 'Women Sweatshirt 3', description: 'High resolution Sweatshirt for women', price: 799, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/eqwft03074_quiksilver,w_mea0_frt1.jpg', gender: 'women' },
+      { id: '7', name: 'Men Sweatshirt 4', description: 'Comfortable casual Sweatshirt for men', price: 249, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/eqysw03281_quiksilver,w_kvj0_frt1.jpg', gender: 'men' },
+      { id: '8', name: 'Women Sweatshirt 4', description: 'Stylish Sweatshirt for women', price: 299, imageUrl: 'https://images.napali.app/global/quiksilver-products/all/default/large/eqwft03042_quiksilver,w_mqy0_frt1.jpg', gender: 'women' },
     ],
   },
+  // Add other categories here
 ];
 
 export default categories;

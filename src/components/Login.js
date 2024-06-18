@@ -20,7 +20,7 @@ const Login = () => {
 
     if (user) {
       localStorage.setItem('user', JSON.stringify({ username: user.username, role: user.role }));
-      window.location.href = '/home';
+      window.location.href = '/';
     } else {
       setError('Invalid username or password. Please try again.');
     }
@@ -35,6 +35,7 @@ const Login = () => {
   };
 
   return (
+    <div style={{height:'100vh'}}>
     <Box sx={{ maxWidth: 400, mx: 'auto', mt: 5, p: 3, boxShadow: 3 }}>
       <Typography variant="h4" gutterBottom sx={{ color: 'text.primary' }}>
         Login
@@ -83,6 +84,7 @@ const Login = () => {
         </Box>
       )}
     </Box>
+    </div>
   );
 };
 

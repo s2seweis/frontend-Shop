@@ -10,7 +10,7 @@ const CheckoutStep2 = ({ handleBack, handleNext }) => {
   const isPaymentMethodSelected = values.paymentMethod;
 
   return (
-    <div>
+    <div style={{height:"91vh"}}>
       <Typography variant="h5" gutterBottom sx={{ color: theme.palette.text.primary }}>
         Payment Information
       </Typography>
