@@ -56,7 +56,7 @@ const SideMenu = ({ onClose }) => {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', justifyContent: 'space-between' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', justifyContent: 'space-between', width:'200px' }}>
       <Box>
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 1, mb: 1 }}>
           <img src="/logo192.png" alt="Logo" style={{ width: '80px' }} />
